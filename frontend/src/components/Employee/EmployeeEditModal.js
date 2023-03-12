@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Label from '../Label';
 import Input from '../Input';
 import { editEmployee } from '../../services/EmployeeService';
 import { useDispatch, useSelector } from 'react-redux';
 import { showLoader } from '../../redux-store/loaderSlice';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { displayEmployeeRerender } from '../../redux-store/employeeSlice';
+import { editAssignee } from '../../services/TaskService';
 
 function EmployeeEditModal(props) {
 
@@ -18,10 +19,10 @@ function EmployeeEditModal(props) {
     const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(true);
     const [isValidDateOfBirth, setIsValidDateOfBirth] = useState(true);
     const [isValidMonthlySalary, setIsValidMonthlySalary] = useState(true);
-    const [employee, setEmployee] = useState({ ...employeeStore });
+    const [employee, setEmployee] = useState(employeeStore ? employeeStore : '');
 
     useEffect(() => {
-        setEmployee({ ...employeeStore })
+        setEmployee({ ...employeeStore });
     }, [employeeStore.fullName, employeeStore.email, employeeStore.phoneNumber, employeeStore.dateOfBirth, employeeStore.monthlySalary])
 
     const handleInputs = e => {
@@ -62,6 +63,13 @@ function EmployeeEditModal(props) {
         try {
             response = await editEmployee(employee);
             console.log(response, 'response FRONT');
+        } catch (err) {
+            console.log(err, 'ERROR');
+        }
+        
+        try {
+            const gg = await editAssignee(employee);
+            console.log(gg, 'response FRONT ASSIGNEE');
         } catch (err) {
             console.log(err, 'ERROR');
         }

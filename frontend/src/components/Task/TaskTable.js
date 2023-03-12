@@ -28,9 +28,9 @@ function TaskTable({ setIsTaskEditModal, setIsTaskDeleteModal, taskFlag }) {
                 <td>{task.title}</td>
                 <td>{task.description}</td>
                 <td>{task.assignee}</td>
-                <td>{task.dueDate}</td>
+                <td>{task.dueDate.slice(0, 10)}</td>
                 <td>
-                    <div className="btns-wrapper">
+                    <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
                         <button className="btn btn-warning" onClick={(e) => getOne(e, task._id)}>Edit</button>
                         <button className="btn btn-danger" onClick={(e) => getOne(e, task._id)}>Delete</button>
                     </div>
@@ -55,6 +55,7 @@ function TaskTable({ setIsTaskEditModal, setIsTaskDeleteModal, taskFlag }) {
 
     return (
         <>
+        {console.log(allTasks, 'allTasks')}
             {
                 allTasks ?
                     <table className="table table-dark table-striped">

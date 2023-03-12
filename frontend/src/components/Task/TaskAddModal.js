@@ -138,6 +138,7 @@ function TaskAddModal(props) {
                                 style={isValidAssignee ? true : false}
                                 innerText={isValidAssignee ? 'Assignee task to' : 'Assignee one employee'} />
                             <select onChange={function (e) { selectEmployee(e) }}>
+                                <option value="">Choose employee</option>
                                 {allEmployees ?
                                     allEmployees.map(function (employee, index) {
                                         return <option key={index + 1} id={employee._id} value={employee.fullName}>{employee.fullName}</option>

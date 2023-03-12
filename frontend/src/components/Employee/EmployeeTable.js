@@ -28,10 +28,10 @@ function EmployeeTable({ setIsEmployeeEditModal, setIsEmployeeDeleteModal, emplo
                 <td>{employee.fullName}</td>
                 <td>{employee.email}</td>
                 <td>{employee.phoneNumber}</td>
-                <td>{employee.dateOfBirth}</td>
+                <td>{employee.dateOfBirth.slice(0, 10)}</td>
                 <td>{employee.monthlySalary}</td>
                 <td>
-                    <div className="btns-wrapper">
+                    <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
                         <button className="btn btn-warning" onClick={(e) => getOne(e, employee._id)}>Edit</button>
                         <button className="btn btn-danger" onClick={(e) => getOne(e, employee._id)}>Delete</button>
                     </div>

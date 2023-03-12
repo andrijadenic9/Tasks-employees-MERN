@@ -1,14 +1,19 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import EmployeeTable from "../components/Employee/EmployeeTable"
 import EmployeeAddModal from "../components/Employee/EmployeeAddModal"
 import EmployeeEditModal from "../components/Employee/EmployeeEditModal"
 import EmployeeDeleteModal from "../components/Employee/EmployeeDeleteModal"
 
-function Employee({ isEmployeeAddModal, setIsEmployeeAddModal }) {
+function Employee({ isEmployeeAddModal, setIsEmployeeAddModal, setIsTaskPage, setIsEmployeePage }) {
 
     const [employeeFlag, setEmployeeFlag] = useState(false);
     const [isEmployeeEditModal, setIsEmployeeEditModal] = useState(false);
     const [isEmployeeDeleteModal, setIsEmployeeDeleteModal] = useState(false);
+
+    useEffect(() => {
+        setIsTaskPage(false);
+        setIsEmployeePage(true);
+    }, []);
 
     return (
         <>

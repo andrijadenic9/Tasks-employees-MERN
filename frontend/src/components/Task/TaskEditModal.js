@@ -29,7 +29,7 @@ function TaskEditModal(props) {
     const [isValidDescription, setIsValidDescription] = useState(true);
     const [isValidAssignee, setIsValidAssignee] = useState(true);
     const [isValidDueDate, setIsValidDueDate] = useState(true);
-    const [task, setTask] = useState({ ...taskStore });
+    const [task, setTask] = useState('');
 
     useEffect(() => {
         setTask({ ...taskStore })
@@ -89,17 +89,6 @@ function TaskEditModal(props) {
         setTask((prev) => ({ ...prev, assignee: e.target.value, employeeID: e.target.options[e.target.selectedIndex].id }))
     }
 
-    // todo OBRISATI AKO NE RADI
-    const assigneedTo = () => {
-        const exact = allEmployees.filter(employee => {
-            // console.log(employee._id, 'employee');
-            // console.log(task.employeeID, 'task');
-            return employee._id === task.employeeID;
-        })
-        console.log(exact[0], 'exact');
-        return exact[0]
-    }
-
     return (
         <>
             <Modal
@@ -148,26 +137,11 @@ function TaskEditModal(props) {
                                 htmlFor='assignee'
                                 style={isValidAssignee ? true : false}
                                 innerText={isValidAssignee ? 'Assignee task to' : 'Assignee is required'} />
-                            <select
-                                // TODO - OVO NISAM ZAVRSIO, AKO NE USPEM SAMO BRISI TODO I NEKA OSTANE TAKO KAKO JE
-                                // defaultValue={
-                                //     allEmployees ?
-                                //         allEmployees.filter(employee => {
-                                //             console.log(employee._id, 'employee');
-                                //             console.log(task.employeeID, 'task');
-                                //             return employee._id === task.employeeID;
-                                //         }) :
-                                //         null
-                                // }
-
-                                // value={
-                                //     allEmployees ? assigneedTo().fullName : ''
-                                // }
-                                onChange={function (e) { selectEmployee(e) }} >
+                            <select onChange={function (e) { selectEmployee(e) }} >
                                 {
                                     allEmployees ?
                                         allEmployees.map(function (employee, index) {
-                                            return <option key={index + 1} id={employee._id} value={employee.fullName}>{employee.fullName}</option>
+                                            return <option key={index + 1} id={employee._id} value={employee.fullName} selected={employee._id === task.employeeID ? true : false}>{employee.fullName}</option>
                                         }) :
                                         null
                                 }

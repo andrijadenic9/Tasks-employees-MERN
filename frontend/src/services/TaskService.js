@@ -60,3 +60,15 @@ export const deleteTask = async (id) => {
         return { status: 404, message: err.response.data.message }
     }
 }
+
+export const editAssignee = async (employee) => {
+    try {
+        const res = await axios.patch('/api/v1/task/', employee);
+        console.log(res, 'res iz servisa');
+        if (res && res.status === 200 && res.data.status === 'success') return { status: 200, message: res.data.message }
+        return { status: 401, message: 'Task not edited' }
+    } catch (err) {
+        console.log(err, 'err iz servisa');
+        return { status: 404, message: err.response.data.message }
+    }
+}

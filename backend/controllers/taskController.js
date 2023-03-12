@@ -122,3 +122,19 @@ exports.deleteTask = async (req, res) => {
         });
     }
 }
+
+exports.editAssignee = async (req, res) => {
+    console.log(req.body, 'bodyy');
+    try {
+        await Task.updateMany({ employeeID: req.body._id }, { $set: { assignee: req.body.fullName } })
+        res.status(200).json({
+            status: 'success',
+            message: 'Assignee successfuly edited'
+        });
+    } catch (err) {
+        res.status(404).json({
+            status: 'fail',
+            message: 'Task not found'
+        });
+    }
+}

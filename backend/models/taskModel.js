@@ -10,8 +10,8 @@ const taskSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Description is required'],
         trim: true,
-        minlength: [10, 'Description must have more than 10 characters'],
-        maxlength: [50, 'Description must have less than 50 characters']
+        minlength: [20, 'Description must have more than 20 characters'],
+        maxlength: [70, 'Description must have less than 70 characters']
     },
     assignee: {
         type: String,

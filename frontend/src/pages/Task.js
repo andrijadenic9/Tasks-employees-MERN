@@ -2,13 +2,18 @@ import TaskTable from '../components/Task/TaskTable';
 import TaskAddModal from '../components/Task/TaskAddModal';
 import TaskEditModal from '../components/Task/TaskEditModal';
 import TaskDeleteModal from '../components/Task/TaskDeleteModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-function Task({ isTaskAddModal, setIsTaskAddModal }) {
+function Task({ isTaskAddModal, setIsTaskAddModal, setIsTaskPage, setIsEmployeePage }) {
 
     const [taskFlag, setTaskFlag] = useState(false);
     const [isTaskEditModal, setIsTaskEditModal] = useState(false);
     const [isTaskDeleteModal, setIsTaskDeleteModal] = useState(false);
+
+    useEffect(() => {
+        setIsEmployeePage(false);
+        setIsTaskPage(true);
+    }, []);
 
     return (
         <>
