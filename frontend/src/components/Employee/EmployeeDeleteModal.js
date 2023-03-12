@@ -1,11 +1,8 @@
 import Modal from 'react-bootstrap/Modal';
 import Input from '../Input';
-import { ToastContainer, toast } from 'react-toastify';
-import { useDispatch, useSelector } from 'react-redux';
-import { showLoader } from '../../redux-store/loaderSlice';
+import { toast } from 'react-toastify';
+import {  useSelector } from 'react-redux';
 import { deleteEmployee } from '../../services/EmployeeService';
-import { displayEmployeeRerender } from '../../redux-store/employeeSlice';
-import { useEffect, useState } from 'react';
 
 function EmployeeDeleteModal(props) {
 
@@ -19,7 +16,7 @@ function EmployeeDeleteModal(props) {
     }
 
     const deleteOne = async () => {
-        //todo - do not know why deleteEmployee do not work when showloader
+        //todo - I'm not sure why dispatch bothers me when I want to rerender, so I created "props.employeeFlag" for this one
         // dispatch(showLoader(true))
         props.setIsEmployeeDeleteModal(false);
 
@@ -28,9 +25,8 @@ function EmployeeDeleteModal(props) {
             response = await deleteEmployee(employee._id);
             console.log(response, 'response FRONT');
         } catch (err) {
-            console.log(err, 'ERROR');
         }
-        //todo - do not know why deleteEmployee do not work when showloader
+        //todo - I'm not sure why dispatch bothers me when I want to rerender, so I created "props.employeeFlag" for this one
         // dispatch(showLoader(false))
         // if (response.status === 200) dispatch(displayEmployeeRerender(!employeeRerender));
         response && displayMessage(response);

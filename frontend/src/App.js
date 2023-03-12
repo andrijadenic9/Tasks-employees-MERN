@@ -5,7 +5,7 @@ import Task from './pages/Task';
 import Statistics from './pages/Statistics';
 import { useEffect, useState } from 'react';
 import Loader from './components/Loader/Loader';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 

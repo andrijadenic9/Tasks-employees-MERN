@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import './navbar.css';
 
 function Navbar({ isEmployeePage, isTaskPage, setIsEmployeeAddModal, setIsTaskAddModal }) {
 
@@ -19,14 +20,11 @@ function Navbar({ isEmployeePage, isTaskPage, setIsEmployeeAddModal, setIsTaskAd
                                 <Link to='/tasks'>Tasks</Link>
                             </li>
                             <li className="nav-item">
-                                <Link to='/statistics'>Stats</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to='/top-5'>Top 5</Link>
+                                <Link to='/statistics'>Statistics</Link>
                             </li>
                         </ul>
-                        {isEmployeePage ? <button onClick={() => setIsEmployeeAddModal(true)}>Add employee</button> : null}
-                        {isTaskPage ? <button onClick={() => setIsTaskAddModal(true)}>Add task</button> : null}
+                        {isEmployeePage ? <buttona className='btn btn-primary' onClick={() => setIsEmployeeAddModal(true)}>Add employee</buttona> : null}
+                        {isTaskPage ? <buttona className='btn btn-primary' onClick={() => setIsTaskAddModal(true)}>Add task</buttona> : null}
                     </div>
                 </div>
             </nav>

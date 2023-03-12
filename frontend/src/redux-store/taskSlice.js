@@ -9,11 +9,9 @@ const taskSlice = createSlice({
     reducers: {
         displayTaskRerender: (state, action) => {
             state.taskRerender = action.payload;
-            console.log(state.taskRerender, 'taskRerender iz slice');
         },
         setTask: (state, action) => {
             state.task = action.payload;
-            console.log(state.task, 'task iz slicer');
         }
     }
 });

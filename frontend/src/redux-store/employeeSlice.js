@@ -9,11 +9,9 @@ const employeeSlice = createSlice({
     reducers: {
         displayEmployeeRerender: (state, action) => {
             state.employeeRerender = action.payload;
-            console.log(state.employeeRerender, 'employeeRerender iz slice');
         },
         setEmployee: (state, action) => {
             state.employee = action.payload;
-            console.log(state.employee, 'emoloyee iz slicer');
         }
     }
 });

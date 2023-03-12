@@ -1,25 +1,19 @@
 const Employee = require('../models/employeeModel');
-// const Employee = require('../models/employeeModel');
 
 exports.saveEmployee = async (req, res) => {
     const { email } = req.body;
 
     try {
         const employee = await Employee.findOne({ email: email });
-        console.log(employee, 'vidimoaa');
-        console.log(!employee, 'vidimoaa2');
         if (!employee) {
             const newEmployee = new Employee({ ...req.body })
             const saveNewEmployee = await newEmployee.save();
-            console.log('TRY');
             return res.status(200).json({
                 status: 'success',
                 message: 'Employee successfuly added',
                 user: saveNewEmployee
             });
         } else {
-            console.log('EXIST');
-
             res.status(404).json({
                 status: 'fail',
                 message: 'User already exist'
@@ -27,7 +21,6 @@ exports.saveEmployee = async (req, res) => {
         }
 
     } catch (err) {
-        console.log('ERR');
         const message = err.message
 
         res.status(401).json({
@@ -40,14 +33,13 @@ exports.saveEmployee = async (req, res) => {
 exports.getAllEmployee = async (req, res) => {
     try {
         const allEmployee = await Employee.find({})
-        console.log(allEmployee, ' svi');
+
         if (allEmployee.length > 0) {
             res.status(200).json({
                 status: 'success',
                 message: 'All employee successfuly displayed',
                 allEmployee
             });
-            // res.send(allEmployee)
         } else {
             res.status(401).json({
                 status: 'fail',
@@ -55,7 +47,6 @@ exports.getAllEmployee = async (req, res) => {
             });
         }
     } catch (err) {
-        console.log(err, 'ERR');
         res.status(404).json({
             status: 'fail',
             message: 'Something went wrong, please try again'
@@ -66,8 +57,6 @@ exports.getAllEmployee = async (req, res) => {
 exports.getEmployee = async (req, res) => {
     try {
         const employee = await Employee.findById(req.params.id);
-        console.log(employee, 'da vidimo');
-        console.log('jedan zaposleni');
         if (employee) res.status(200).json({
             status: 'success',
             message: 'Employee successfuly fetched',
@@ -78,7 +67,6 @@ exports.getEmployee = async (req, res) => {
             message: 'Something went wrong, please try again.'
         });
     } catch (err) {
-        console.log(err, 'greskica');
         res.status(404).json({
             status: 'fail',
             message: 'Employee does not exist',
@@ -105,7 +93,6 @@ exports.editEmployee = async (req, res) => {
             message: 'Successfuly updated employee'
         });
     } catch (err) {
-        console.log(err, 'greskica');
         res.status(404).json({
             status: 'fail',
             message: 'Something went wrong, please try again.'

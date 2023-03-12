@@ -55,10 +55,9 @@ function TaskTable({ setIsTaskEditModal, setIsTaskDeleteModal, taskFlag }) {
 
     return (
         <>
-        {console.log(allTasks, 'allTasks')}
             {
                 allTasks ?
-                    <table className="table table-dark table-striped">
+                    <table className="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>

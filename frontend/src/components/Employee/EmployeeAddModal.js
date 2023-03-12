@@ -5,12 +5,10 @@ import Input from '../Input';
 import { saveEmployee } from '../../services/EmployeeService';
 import { useDispatch, useSelector } from 'react-redux';
 import { showLoader } from '../../redux-store/loaderSlice';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { displayEmployeeRerender } from '../../redux-store/employeeSlice';
 
 function EmployeeAddModal(props) {
-
-    // console.log(props, 'props samo dmodal');
 
     const dispatch = useDispatch();
     const { employeeRerender } = useSelector(state => state.employeeStore)
@@ -64,7 +62,6 @@ function EmployeeAddModal(props) {
         let response;
         try {
             response = await saveEmployee(employee);
-            console.log(response, 'response FRONT');
         } catch (err) {
             console.log(err, 'ERROR');
         }

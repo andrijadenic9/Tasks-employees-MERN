@@ -1,21 +1,17 @@
 const Task = require('../models/taskModel');
 
 exports.saveTask = async (req, res) => {
-    console.log(req.body, 'ovo je task');
     try {
         const task = await Task.findOne(req.body);
         if (!task) {
             const newTask = new Task({ ...req.body })
             const saveNewTask = await newTask.save();
-            console.log('TRY');
             return res.status(200).json({
                 status: 'success',
                 message: 'Task successfuly added',
                 task: saveNewTask
             });
         } else {
-            console.log('EXIST');
-
             res.status(404).json({
                 status: 'fail',
                 message: 'Task already exist'
@@ -23,7 +19,6 @@ exports.saveTask = async (req, res) => {
         }
 
     } catch (err) {
-        console.log('ERR');
         const message = err.message
 
         res.status(401).json({
@@ -35,8 +30,8 @@ exports.saveTask = async (req, res) => {
 
 exports.getAllTasks = async (req, res) => {
     try {
-        const allTasks = await Task.find({})
-        console.log(allTasks, ' svi');
+        const allTasks = await Task.find({});
+
         if (allTasks.length > 0) {
             res.status(200).json({
                 status: 'success',
@@ -50,7 +45,6 @@ exports.getAllTasks = async (req, res) => {
             });
         }
     } catch (err) {
-        console.log(err, 'ERR');
         res.status(404).json({
             status: 'fail',
             message: 'Something went wrong, please try again'
@@ -61,8 +55,6 @@ exports.getAllTasks = async (req, res) => {
 exports.getTask = async (req, res) => {
     try {
         const task = await Task.findById(req.params.id);
-        console.log(task, 'da vidimo');
-        console.log('jedan task');
         if (task) res.status(200).json({
             status: 'success',
             message: 'Task successfuly fetched',
@@ -73,7 +65,6 @@ exports.getTask = async (req, res) => {
             message: 'Something went wrong, please try again.'
         });
     } catch (err) {
-        console.log(err, 'greskica');
         res.status(404).json({
             status: 'fail',
             message: 'Task does not exist',
@@ -100,7 +91,6 @@ exports.editTask = async (req, res) => {
             message: 'Successfuly updated task'
         });
     } catch (err) {
-        console.log(err, 'greskica');
         res.status(404).json({
             status: 'fail',
             message: 'Something went wrong, please try again.'
@@ -124,7 +114,6 @@ exports.deleteTask = async (req, res) => {
 }
 
 exports.editAssignee = async (req, res) => {
-    console.log(req.body, 'bodyy');
     try {
         await Task.updateMany({ employeeID: req.body._id }, { $set: { assignee: req.body.fullName } })
         res.status(200).json({

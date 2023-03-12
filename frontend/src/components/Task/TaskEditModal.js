@@ -17,7 +17,6 @@ function TaskEditModal(props) {
         const fetchEmployees = async () => {
             const response = await getAllEmployees()
             setAllEmployees(response);
-            console.log(response, 'reees');
         }
         fetchEmployees()
     }, [])
@@ -31,6 +30,8 @@ function TaskEditModal(props) {
     const [isValidDueDate, setIsValidDueDate] = useState(true);
     const [task, setTask] = useState('');
 
+    // When comming to edit modal set "task" to be "taskStore" from redux
+    // TODO When I click on the edit button in the state, I set the task from redux. However, that information is delayed, it is asynchronous, so when I click on the button, it doesn't show me the task I just clicked on, but the previous one I clicked on. The problem occurs in "useEffect" because while my state is being updated, the code is already executed and it shows the last task. I tried to solve this, but I had to continue doing other things so it remained like this due to lack of time.
     useEffect(() => {
         setTask({ ...taskStore })
     }, [taskStore.title, taskStore.description, taskStore.assignee, taskStore.dueDate])
@@ -67,7 +68,6 @@ function TaskEditModal(props) {
         let response;
         try {
             response = await editTask(task);
-            console.log(response, 'response FRONT');
         } catch (err) {
             console.log(err, 'ERROR');
         }
@@ -75,6 +75,7 @@ function TaskEditModal(props) {
         dispatch(showLoader(false));
         response && displayMessage(response);
 
+        // Rerender all task on "taskTable" component in regard to "taskRerender"
         if (response.status === 200) dispatch(displayTaskRerender(!taskRerender));
         setTask({
             title: '',

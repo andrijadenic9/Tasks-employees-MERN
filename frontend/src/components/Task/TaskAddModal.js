@@ -5,8 +5,7 @@ import Input from '../Input';
 import { saveTask } from '../../services/TaskService';
 import { useDispatch, useSelector } from 'react-redux';
 import { showLoader } from '../../redux-store/loaderSlice';
-import { ToastContainer, toast } from 'react-toastify';
-import { displayEmployeeRerender } from '../../redux-store/employeeSlice';
+import { toast } from 'react-toastify';
 import { getAllEmployees } from '../../services/EmployeeService';
 import { displayTaskRerender } from '../../redux-store/taskSlice';
 
@@ -18,7 +17,6 @@ function TaskAddModal(props) {
         const fetchEmployees = async () => {
             const response = await getAllEmployees()
             setAllEmployees(response);
-            console.log(response, 'reees');
         }
         fetchEmployees()
     }, [])
@@ -69,13 +67,13 @@ function TaskAddModal(props) {
         let response;
         try {
             response = await saveTask(task);
-            console.log(response, 'response FRONT');
         } catch (err) {
             console.log(err, 'ERROR');
         }
 
         dispatch(showLoader(false));
         response && displayMessage(response);
+        
         if (response.status === 200) dispatch(displayTaskRerender(!taskRerender));
         setTask({
             title: '',

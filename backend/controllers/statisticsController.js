@@ -17,9 +17,6 @@ exports.getStatistics = async (req, res) => {
 
         const firstDay = new Date(new Date().setDate(new Date().getDate() - 30));
         const lastDay = new Date(Date.now());
-        // console.log(firstDay, 'firstDay');
-        // console.log(lastDay, 'lastDay');
-        console.log(salaryStats, 'salaryStats');
 
         const top5Stats = await Task.aggregate([
             {
@@ -46,7 +43,6 @@ exports.getStatistics = async (req, res) => {
             stats: { salary: salaryStats[0], top5: top5Stats }
         });
     } catch (err) {
-        console.log(err, 'ERR');
         res.status(404).json({
             status: 'fail',
             message: 'Something went wrong, please try again'

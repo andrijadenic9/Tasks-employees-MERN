@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { setEmployee } from '../../redux-store/employeeSlice';
 import { showLoader } from '../../redux-store/loaderSlice';
-import { deleteEmployee, getAllEmployees, getEmployee } from '../../services/EmployeeService';
+import { getAllEmployees, getEmployee } from '../../services/EmployeeService';
 
 function EmployeeTable({ setIsEmployeeEditModal, setIsEmployeeDeleteModal, employeeFlag }) {
 
@@ -58,7 +58,7 @@ function EmployeeTable({ setIsEmployeeEditModal, setIsEmployeeDeleteModal, emplo
         <>
             {
                 allEmployees ?
-                    <table className="table table-dark table-striped">
+                    <table className="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>

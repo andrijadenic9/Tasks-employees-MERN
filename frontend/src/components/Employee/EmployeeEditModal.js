@@ -19,12 +19,15 @@ function EmployeeEditModal(props) {
     const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(true);
     const [isValidDateOfBirth, setIsValidDateOfBirth] = useState(true);
     const [isValidMonthlySalary, setIsValidMonthlySalary] = useState(true);
-    const [employee, setEmployee] = useState(employeeStore ? employeeStore : '');
+    const [employee, setEmployee] = useState({ ...employeeStore } || '');
 
+    // When comming to edit modal set "employee" to be "employeeStore" from redux
+    // TODO When I click on the edit button in the state, I set the employee from redux. However, that information is delayed, it is asynchronous, so when I click on the button, it doesn't show me the employee I just clicked on, but the previous one I clicked on. The problem occurs in "useEffect" because while my state is being updated, the code is already executed and it shows the last employee. I tried to solve this, but I had to continue doing other things so it remained like this due to lack of time.
     useEffect(() => {
         setEmployee({ ...employeeStore });
     }, [employeeStore.fullName, employeeStore.email, employeeStore.phoneNumber, employeeStore.dateOfBirth, employeeStore.monthlySalary])
 
+    // Handle inputs on change
     const handleInputs = e => {
         setEmployee((prev) => ({
             ...prev,
@@ -59,17 +62,16 @@ function EmployeeEditModal(props) {
         props.setIsEmployeeEditModal(false);
 
         // Save employee by going to the service witch will go to the backend using axios
+        // TODO this i had to do at one async fuction instead doing it in two
         let response;
         try {
             response = await editEmployee(employee);
-            console.log(response, 'response FRONT');
         } catch (err) {
             console.log(err, 'ERROR');
         }
-        
+
         try {
             const gg = await editAssignee(employee);
-            console.log(gg, 'response FRONT ASSIGNEE');
         } catch (err) {
             console.log(err, 'ERROR');
         }
@@ -77,6 +79,7 @@ function EmployeeEditModal(props) {
         dispatch(showLoader(false));
         response && displayMessage(response);
 
+        // Rerender all employee on "employeeTable" component in regard to "employeeRerender"
         if (response.status === 200) dispatch(displayEmployeeRerender(!employeeRerender));
         setEmployee({
             fullName: '',
